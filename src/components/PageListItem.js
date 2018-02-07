@@ -13,10 +13,10 @@ const PageListItem = ({ id, title, description, type, isActive, publishedOn, rem
         
         { (() => {
             switch (type) {
-              case 0: return <p><Icon name='browser' color='blue'/>Menu</p>
-              case 1: return <p><Icon name='browser' color='red'/>Event</p>
-              case 2: return <p><Icon name='browser' color='violet'/>Content</p>
-              default: return <p><Icon name='browser'/></p>
+              case 0: return <p><Icon name='info circle' color='blue'/>Menu</p>
+              case 1: return <p><Icon name='info circle' color='red'/>Event</p>
+              case 2: return <p><Icon name='info circle' color='violet'/>Content</p>
+              default: return <p><Icon name='info circle'/></p>
             }
           })()
         }

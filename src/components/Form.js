@@ -87,7 +87,7 @@ class FormForValidation extends Component {
       
           <Form.Field className='submitRow'>
             <div className='homeBtnDiv'>
-              <Button as={Link} to="/" content='Dashboard' icon='home' labelPosition='left' className="homeBtn" />
+              <Button as={Link} to="/" content='Dashboard' icon='angle double left' labelPosition='left' className="homeBtn" />
             </div>
       
             <Button color='red' disabled={pristine || submitting} onClick={reset}>Clear Page</Button>
