@@ -1,8 +1,10 @@
-import React from 'react';
+import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { connect } from 'react-redux';
-import { addPage } from '../actions/pageActions';
-import FormForValidation from './Form';
-import { Container, Grid, Header,  Image, Divider, Message } from 'semantic-ui-react'
+import { addPage } from '../actions/pageActions'
+import FormForValidation from './Form'
+import { Container, Grid, Header,  Image, Divider, Message, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
 
 const AddPage = (props) => {
@@ -12,7 +14,7 @@ const AddPage = (props) => {
         <Icon name='wait' />
         <Message.Content>
           <Message.Header>An error occured</Message.Header>
-          {errors.message}
+          {props.errors.message}
       </Message.Content>
       </Message>
       <Divider></Divider>
@@ -25,7 +27,7 @@ const AddPage = (props) => {
     props.dispatch(addPage(page))
          .then(
             response => {
-              ready= !ready
+              props.ready= !props.ready
               if(ready)
                 props.history.push('/')}
             )
@@ -47,8 +49,8 @@ const AddPage = (props) => {
 
       <Grid centered columns={2}>
         <Grid.Column>
-          { errors.message && errorMessage }
-          { !errors.message && PageContent }
+          { props.errors.message && errorMessage }
+          { !props.errors.message && PageContent }
         </Grid.Column>
       </Grid>
     </Container>
@@ -62,4 +64,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect()(AddPage)
+export default connect(mapStateToProps)(AddPage)

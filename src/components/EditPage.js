@@ -1,10 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Container, Grid, Header,  Image, Divider, Button, Message, Icon } from 'semantic-ui-react'
-import FormForValidation from './Form';
-import { editPage } from '../actions/pageActions';
+import FormForValidation from './Form'
+import { editPage } from '../actions/pageActions'
 import moment from 'moment'
 
 const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
