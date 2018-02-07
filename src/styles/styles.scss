@@ -1,0 +1,84 @@
+
+/* CONTAINERS */
+
+.box-layout {
+  background-color: #e8f4fc;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+}
+.ui.fluid.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.errorContainer {
+  background-color: #f4f3f3!important;
+  height: calc(100vh - 90px)!important;
+  display: flex;
+  justify-content: center;
+}
+.homeBtnDiv {
+  flex: 1;
+  text-align: left;
+}
+.listContainer {
+  height: calc(100vh - 230px);
+  overflow-y: scroll;
+}
+
+/* BUTTONS ROWS */
+
+.addbtnRow {
+  height: 120px;
+  margin: 30px 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.submitRow {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+/* BUTTONS */
+
+.actionBtn {
+  min-height: 80px;
+  height: 80px;
+  min-width: 80px;
+  padding: 0px!important;
+  display: flex!important;
+  align-items: center;
+  justify-content: center;
+}
+.actionBtn .visible.content {
+  margin: 0px!important;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.actionBtn .visible.content .icon {
+  font-size: 30px;
+  margin: 0px;
+  line-height: 30px;
+}
+.formBtn {
+  width: 100px
+}
+
+/* GENERAL */
+
+.mainTitle {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
