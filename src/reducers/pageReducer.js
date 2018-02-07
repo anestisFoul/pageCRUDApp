@@ -5,7 +5,8 @@ import { FETCH_PAGES_FULFILLED, FETCH_PAGES_PENDING, FETCH_PAGES_REJECTED,
 
 const pageReducerDefaultState = {
   pages: [],
-  loading: false
+  loading: false,
+  errors: {}
 }
 
 export default (state = pageReducerDefaultState, action) => {
@@ -20,6 +21,12 @@ export default (state = pageReducerDefaultState, action) => {
       return {
         ...state,
         loading: true,
+      }
+    case FETCH_PAGES_REJECTED:
+      return {
+        ...state,
+        loading: false,
+        errors: { message: action.payload.message }
       }
 
     case ADD_PAGE_PENDING: 
@@ -36,7 +43,8 @@ export default (state = pageReducerDefaultState, action) => {
     case ADD_PAGE_REJECTED: 
       return {
         ...state,
-        loading: false
+        loading: false,
+        errors: { message: action.payload.message }
       }
 
     case EDIT_PAGE_PENDING: 
@@ -53,10 +61,10 @@ export default (state = pageReducerDefaultState, action) => {
       }
 
     case EDIT_PAGE_REJECTED: 
-      // const data = action.payload.response.data;
       return {
         ...state,
-        loading: false
+        loading: false,
+        errors: { message: action.payload.message }
       }
 
     case REMOVE_PAGE_FULFILLED: 

@@ -7,7 +7,7 @@ import FormForValidation from './Form';
 import { editPage } from '../actions/pageActions';
 import moment from 'moment'
 
-const EditPage = ({page, loading, dispatch, history, ready}) => {
+const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
   const loadingMessage = (
     <Message icon info>
       <Icon name='circle notched' loading />
@@ -16,6 +16,20 @@ const EditPage = ({page, loading, dispatch, history, ready}) => {
           We are fetching that content for you.
       </Message.Content>
     </Message>
+  )
+
+  const errorMessage = (
+    <div>
+      <Message icon negative size='big'>
+        <Icon name='wait' />
+        <Message.Content>
+          <Message.Header>An error occured</Message.Header>
+          {errors.message}
+        </Message.Content>
+      </Message>
+      <Divider></Divider>
+      <Button as={Link} to="/" content='Back to Dashboard' icon='home' labelPosition='left' className="homeBtn" color='black' />
+    </div>
   )
 
   const onSubmit = (page) => {
@@ -30,14 +44,10 @@ const EditPage = ({page, loading, dispatch, history, ready}) => {
   }
 
   const PageContent = (
-    <Grid centered columns={2}>
-      <Grid.Column>
-        <FormForValidation
-          initialValues = {page}
-          onSubmit = {onSubmit}
-        />
-      </Grid.Column>
-    </Grid>
+    <FormForValidation
+      initialValues = {page}
+      onSubmit = {onSubmit}
+    />
   )
 
   return (
@@ -46,8 +56,14 @@ const EditPage = ({page, loading, dispatch, history, ready}) => {
         <Image as={Link} to="/" circular src='../images/logo.png' size='medium' />
         Edit Page
       </Header>
-      { loading && loadingMessage }
-      { !loading && PageContent }
+
+      <Grid centered columns={2}>
+        <Grid.Column>
+          { loading && loadingMessage }
+          { errors.message && errorMessage }
+          { !loading && !errors.message && PageContent }
+        </Grid.Column>
+      </Grid>
     </Container>
   )
 }
@@ -56,6 +72,7 @@ const mapStateToProps = (state,props) => {
   return {
     page: state.pagesStore.pages.find((page) => page.id === parseInt(props.match.params.id)),
     loading: state.pagesStore.loading,
+    errors: state.pagesStore.errors,
     ready: false
   }
 }

@@ -4,7 +4,7 @@ import PageListItem from './PageListItem'
 import { fetchPages, removePage } from '../actions/pageActions'
 import showPages from '../helpers/sorting'
 
-const PageList = ({pages, loading, removePage}) => {
+const PageList = ({pages, loading, errors, removePage}) => {
   const loadingMessage = (
     <Message icon info>
       <Icon name='circle notched' loading />
@@ -12,6 +12,16 @@ const PageList = ({pages, loading, removePage}) => {
         <Message.Header>Just one second</Message.Header>
         We are fetching that content for you.
       </Message.Content>
+    </Message>
+  )
+
+  const errorMessage = (
+    <Message icon negative>
+      <Icon name='wait' />
+      <Message.Content>
+        <Message.Header>An error occured</Message.Header>
+        {errors.message}
+     </Message.Content>
     </Message>
   )
 
@@ -24,7 +34,7 @@ const PageList = ({pages, loading, removePage}) => {
   }
 
   const pagesList = (
-    <Card.Group itemsPerRow={2}>
+    <Card.Group itemsPerRow={3}>
       { pageItems() }
     </Card.Group>
   )
@@ -32,6 +42,7 @@ const PageList = ({pages, loading, removePage}) => {
   return (
     <div>
       { loading && loadingMessage }
+      { errors.global && errorMessage }
       { pages.length > 0 && !loading && pagesList }
     </div>
   )

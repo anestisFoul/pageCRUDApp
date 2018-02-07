@@ -23,7 +23,7 @@ class Dashboard extends Component {
         <ActionBar />
 
         <Segment attached='bottom' className="listContainer">
-          <PageList pages={this.props.pages} loading={this.props.loading} removePage={this.props.removePage}/>
+          <PageList pages={this.props.pages} loading={this.props.loading} errors={this.props.errors} removePage={this.props.removePage}/>
         </Segment>
           
         <div className="addbtnRow">
@@ -43,6 +43,7 @@ function mapStateToProps(state) {
   return {
     pages : showPages(state.pagesStore.pages, state.filters),
     loading: state.pagesStore.loading,
+    errors: state.pagesStore.errors
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Button, Icon } from 'semantic-ui-react'
+import { Card, Button, Icon, Popup } from 'semantic-ui-react'
 
 const PageListItem = ({ id, title, description, type, isActive, publishedOn, removePage }) => (
   <Card>
@@ -29,7 +29,12 @@ const PageListItem = ({ id, title, description, type, isActive, publishedOn, rem
     <Card.Content extra>
       <div className="ui two buttons">
         <Button basic color="green" as={Link} to={`/edit/${id}`}>Edit</Button>
-        <Button basic color="red" onClick = {() => { removePage({ id: id }) }}>Delete</Button>
+        <Popup
+          trigger={<Button basic color="red">Delete</Button>}
+          content={<Button inverted color='red' content='Are you sure ?' onClick = {() => { removePage({ id: id }) }} />}
+          on='click'
+          position='top right'
+        />
       </div>
     </Card.Content>
   </Card>
