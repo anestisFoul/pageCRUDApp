@@ -8,8 +8,10 @@ const PageListItem = ({ id, title, description, type, isActive, publishedOn, rem
       <Card.Header>
         <Icon name='asterisk'/> {title}
       </Card.Header>
+    </Card.Content>
+    <Card.Content>
       <Card.Description>
-        <p><Icon name='browser'/> {description}</p>
+        <p><Icon name='browser'/> {description && (description.length > 50) ? description.substring(0,50)+'...' : description}</p>
         
         { (() => {
             switch (type) {

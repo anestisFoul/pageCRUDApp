@@ -2,8 +2,9 @@
 
 export default (pages, { text, sortBy }) => {
   return pages.filter((page) => {
-    const textMatch = page.description.toLowerCase().includes(text.toLowerCase()) || page.title.toLowerCase().includes(text.toLowerCase())
-    return textMatch;
+    const textMatch = page.title.toLowerCase().includes(text.toLowerCase())
+
+    return textMatch
   }).sort((a, b) => {
     if (sortBy === 'date') {
       if(a.publishedOn < b.publishedOn) 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { SubmissionError } from 'redux-form'
 import { Container, Grid, Header,  Image, Divider, Button, Message, Icon } from 'semantic-ui-react'
 import FormForValidation from './Form'
 import { editPage } from '../actions/pageActions'
@@ -33,6 +34,7 @@ const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
 
   const onSubmit = (page) => {
     page.publishedOn = moment(page.publishedOn).format()
+    page.type == '3' ? page.type = '0' : page.type
     dispatch(editPage(page.id, page))
       .then(
         response => {
@@ -40,11 +42,14 @@ const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
           if(ready)
             history.push('/')}
       )
+      .catch(err => {
+        throw new SubmissionError(errors.message)
+      })
   }
 
   const PageContent = (
     <FormForValidation
-      initialValues = {page}
+      initialValues = {page ? {'id':page.id,'title':page.title,'description':page.description,'type': page.type == 0 ? '3' : page.type,'isActive':page.isActive,'publishedOn': page.publishedOn } : page}
       onSubmit = {onSubmit}
     />
   )
@@ -56,7 +61,7 @@ const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
         Edit Page
       </Header>
 
-      <Grid centered columns={2}>
+      <Grid centered stackable columns={2}>
         <Grid.Column>
           { loading && loadingMessage }
           { errors.message && errorMessage }

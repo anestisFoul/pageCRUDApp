@@ -29,12 +29,15 @@
   height: calc(100vh - 230px);
   overflow-y: scroll;
 }
+.listContainer > div {
+  margin-top: 10px;
+}
 
 /* BUTTONS ROWS */
 
 .addbtnRow {
-  height: 120px;
-  margin: 30px 40px;
+  height: 90px;
+  margin: 20px 40px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -43,6 +46,7 @@
   height: 70px;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 /* BUTTONS */
@@ -80,5 +84,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.ui.card > .content p, .ui.cards > .card > .content p {
+  word-break: break-all;
+}
+textarea {
+  height: 100px!important;
+  resize: none!important;
 }
 

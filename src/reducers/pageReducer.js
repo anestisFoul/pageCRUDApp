@@ -21,6 +21,7 @@ export default (state = pageReducerDefaultState, action) => {
       return {
         ...state,
         loading: true,
+        errors: {}
       }
     case FETCH_PAGES_REJECTED:
       return {
@@ -32,7 +33,8 @@ export default (state = pageReducerDefaultState, action) => {
     case ADD_PAGE_PENDING: 
       return {
         ...state,
-        loading: true
+        loading: true,
+        errors: {}
       }
     case ADD_PAGE_FULFILLED: 
       return {
@@ -50,7 +52,8 @@ export default (state = pageReducerDefaultState, action) => {
     case EDIT_PAGE_PENDING: 
       return {
         ...state,
-        loading: true
+        loading: true,
+        errors: {}
       }
 
     case EDIT_PAGE_FULFILLED: 

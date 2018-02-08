@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
-import { Form, Message, Button, Checkbox, Divider, Icon } from 'semantic-ui-react'
+import { Form, Message, Button, Checkbox, Divider, Icon, Label } from 'semantic-ui-react'
 import { DateTimePicker } from 'react-widgets'
 import moment from 'moment'
 import momentLocalizer from 'react-widgets-moment'
@@ -17,32 +17,33 @@ const minLength = min => value =>
 
 const minLength1 = minLength(1)
 const maxLength50 = maxLength(50)
-const maxLength500 = maxLength(500)
+const maxLength200 = maxLength(200)
 
 const pageTypes = [
-  { key: 't1', text: 'Menu', value: 0 },
-  { key: 't2', text: 'Events', value: 1 },
-  { key: 't3', text: 'Content', value: 2 }
+  { key: 't3', text: 'Menu', value: "3" },
+  { key: 't1', text: 'Events', value: "1" },
+  { key: 't2', text: 'Content', value: "2" }
 ]
 
 const  renderTextField = ({input, label, placeholder, meta: { touched, error } }) => (
   <Form.Field>
-    <Form.Input {...input} fluid label={label} placeholder={placeholder} type='text' required /> 
-    {touched && ((error && <span>{error}</span>))}
+    {(touched && error) ? <Form.Input error {...input} fluid label={label} placeholder={placeholder} type='text' required /> : <Form.Input {...input} fluid label={label} placeholder={placeholder} type='text' required />  }
+    {touched && ((error && <Label pointing color='red' content={error}/>))}
   </Form.Field> 
 )
 
 const renderTextAreaField = ({input, label, placeholder, meta: { touched, error }}) => (
   <Form.Field>
-    <Form.TextArea {...input} label={label} placeholder={placeholder}/>
-    {touched && ((error && <span>{error}</span>))}
+    {(touched && error) ? <Form.TextArea error {...input} label={label} placeholder={placeholder}/> : <Form.TextArea {...input} label={label} placeholder={placeholder}/> }
+    {touched && ((error && <Label pointing color='red' content={error}/>))}
   </Form.Field>
 )
 
 const renderSelectField = ({input, label, placeholder,options, meta: { touched, error }, children,}) => (
   <Form.Field>
-    <Form.Select fluid label={label} options={options} placeholder={placeholder} defaultValue={input.value} onChange={(e,{value}) => (input.onChange(value))} required /> 
-    {touched && (error && <span>{error}</span>)}
+    <Form.Select fluid label={label} options={options} placeholder={placeholder} defaultValue={input.value.toString()} onChange={(e,{value}) =>{ console.log(value)
+    return (input.onChange(value)) } } required /> 
+    {touched && ((error && <Label pointing color='red' content={error}/>))}
   </Form.Field>
 )
 
@@ -77,7 +78,7 @@ class FormForValidation extends Component {
             <Field name="type" component={renderSelectField} placeholder='Select Type' label='Page Type' options={pageTypes} validate={[required]}/>
           </Form.Group>
       
-          <Field name="description" component={renderTextAreaField} label="Description" placeholder='Enter a description...' validate={[minLength1, maxLength500]}/>
+          <Field name="description" component={renderTextAreaField} label="Description" placeholder='Enter a description...' validate={[minLength1, maxLength200]}/>
 
           <Field name="publishedOn" showTime={false} component={renderDatePicker} label = 'Publish Date'/>
 
@@ -86,9 +87,7 @@ class FormForValidation extends Component {
           <Divider/>
       
           <Form.Field className='submitRow'>
-            <div className='homeBtnDiv'>
-              <Button as={Link} to="/" content='Dashboard' icon='angle double left' labelPosition='left' className="homeBtn" />
-            </div>
+           
       
             <Button color='red' disabled={pristine || submitting} onClick={reset}>Clear Page</Button>
       
@@ -100,6 +99,10 @@ class FormForValidation extends Component {
             </Button>
           </Form.Field>
         </Form>
+      
+        <div className='homeBtnDiv'>
+          <Button as={Link} to="/" content='Dashboard' icon='angle double left' labelPosition='left' className="homeBtn" />
+        </div>
       </div>
     )
   }

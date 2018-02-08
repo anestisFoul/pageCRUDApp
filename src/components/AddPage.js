@@ -1,20 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { SubmissionError } from 'redux-form'
 import { connect } from 'react-redux';
 import { addPage } from '../actions/pageActions'
 import FormForValidation from './Form'
 import { Container, Grid, Header,  Image, Divider, Message, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
 
-const AddPage = (props) => {
+const AddPage = ({dispatch, history, errors, ready}) => {
   const errorMessage = (
     <div>
       <Message icon negative>
         <Icon name='wait' />
         <Message.Content>
           <Message.Header>An error occured</Message.Header>
-          {props.errors.message}
+          {errors.message}
       </Message.Content>
       </Message>
       <Divider></Divider>
@@ -24,13 +24,18 @@ const AddPage = (props) => {
 
   const onSubmit = (page) => {
     page.publishedOn = moment(page.publishedOn).format()
-    props.dispatch(addPage(page))
-         .then(
-            response => {
-              props.ready= !props.ready
-              if(ready)
-                props.history.push('/')}
-            )
+    page.type == '3' ? page.type = '0' : page.type
+    dispatch(addPage(page))
+      .then(
+        response => {
+          ready = !ready
+          if(ready)
+            history.push('/')
+        }
+      )
+      .catch(err => {
+        throw new SubmissionError(errors.message)
+      })
   }
 
   const PageContent = (
@@ -47,10 +52,10 @@ const AddPage = (props) => {
         {'Add New Page'}
       </Header>
 
-      <Grid centered columns={2}>
+      <Grid centered stackable columns={2}>
         <Grid.Column>
-          { props.errors.message && errorMessage }
-          { !props.errors.message && PageContent }
+          { errors.message && errorMessage }
+          { !errors.message && PageContent }
         </Grid.Column>
       </Grid>
     </Container>

@@ -34,7 +34,7 @@ const PageList = ({pages, loading, errors, removePage}) => {
   }
 
   const pagesList = (
-    <Card.Group itemsPerRow={3}>
+    <Card.Group stackable itemsPerRow={3}>
       { pageItems() }
     </Card.Group>
   )

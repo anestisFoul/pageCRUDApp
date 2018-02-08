@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setTextFilter, sortByDate, sortByActive, sortByTitle } from '../actions/pageFilters';
-import { Dropdown, Icon, Menu, Segment } from 'semantic-ui-react'
+import { Dropdown, Icon, Menu, Segment, Input } from 'semantic-ui-react'
 
 class ActionBar extends Component {
   sortingOptions = [
@@ -22,18 +22,14 @@ class ActionBar extends Component {
   render() {
     return (
       <div>
-        <Menu attached='top'>
-          <Dropdown placeholder='Sort By' defaultValue="title" fluid selection options={this.sortingOptions} onChange={this.filterChange.bind(this)}/>
+        <Menu stackable attached='top'>
+          <Menu.Item position='left'>
+            <Dropdown placeholder='Sort By' defaultValue="title" selection options={this.sortingOptions} onChange={this.filterChange.bind(this)}/>
+          </Menu.Item>
 
-          <Menu.Menu position='right'>
-            <div className='ui right aligned category search item'>
-              <div className='ui transparent icon input'>
-                <input type="text" className='prompt' placeholder='Filter pages...' value={this.props.filters.text} onChange={(e) => {this.props.dispatch(setTextFilter(e.target.value));}}/>
-                <i className='search icon' />
-              </div>
-              <div className='results' />
-            </div>
-          </Menu.Menu>
+          <Menu.Item position='right'>
+            <Input type="text" className='prompt' placeholder='Filter pages...' value={this.props.filters.text} onChange={(e) => {this.props.dispatch(setTextFilter(e.target.value));}}/>
+          </Menu.Item>
         </Menu>
       </div>
     )
