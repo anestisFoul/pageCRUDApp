@@ -1,30 +1,11 @@
 import React, {Component} from 'react'
 import { Button, Card, Image, Message, Icon } from 'semantic-ui-react'
 import PageListItem from './PageListItem'
+import { errorMessage, loadingMessage } from './Messages'
 import { fetchPages, removePage } from '../actions/pageActions'
 import showPages from '../helpers/sorting'
 
 const PageList = ({pages, loading, errors, removePage}) => {
-  const loadingMessage = (
-    <Message icon info>
-      <Icon name='circle notched' loading />
-      <Message.Content>
-        <Message.Header>Just one second</Message.Header>
-        We are fetching that content for you.
-      </Message.Content>
-    </Message>
-  )
-
-  const errorMessage = (
-    <Message icon negative>
-      <Icon name='wait' />
-      <Message.Content>
-        <Message.Header>An error occured</Message.Header>
-        {errors.message}
-     </Message.Content>
-    </Message>
-  )
-
   const pageItems = () => {
     return pages.map(page => {
       return (
@@ -42,7 +23,7 @@ const PageList = ({pages, loading, errors, removePage}) => {
   return (
     <div>
       { loading && loadingMessage }
-      { errors.global && errorMessage }
+      { errors.message && errorMessage(errors.message) }
       { pages.length > 0 && !loading && pagesList }
     </div>
   )

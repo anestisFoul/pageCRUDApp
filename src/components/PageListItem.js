@@ -2,8 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, Icon, Popup } from 'semantic-ui-react'
 
-const PageListItem = ({ id, title, description, type, isActive, publishedOn, removePage }) => (
-  <Card>
+const PageListItem = ({ id, title, description, type, isActive, publishedOn, removePage }) => {
+  const displayPageType = (type) => {
+    switch (type) {
+      case 0: return <p><Icon name='info circle' color='blue'/>Menu</p>
+      case 1: return <p><Icon name='info circle' color='red'/>Event</p>
+      case 2: return <p><Icon name='info circle' color='violet'/>Content</p>
+      default: return <p><Icon name='info circle'/></p>
+    }
+  } 
+
+  return (
+    <Card>
     <Card.Content>
       <Card.Header>
         <Icon name='asterisk'/> {title}
@@ -13,15 +23,7 @@ const PageListItem = ({ id, title, description, type, isActive, publishedOn, rem
       <Card.Description>
         <p><Icon name='browser'/> {description && (description.length > 50) ? description.substring(0,50)+'...' : description}</p>
         
-        { (() => {
-            switch (type) {
-              case 0: return <p><Icon name='info circle' color='blue'/>Menu</p>
-              case 1: return <p><Icon name='info circle' color='red'/>Event</p>
-              case 2: return <p><Icon name='info circle' color='violet'/>Content</p>
-              default: return <p><Icon name='info circle'/></p>
-            }
-          })()
-        }
+        { displayPageType(type)}
         
         <p>{isActive===true ? <span><Icon name='checkmark' color='green'/><i>Active</i></span> : <span><Icon name='x' color='red'/><i>Inactive</i></span>}</p>
 
@@ -40,6 +42,7 @@ const PageListItem = ({ id, title, description, type, isActive, publishedOn, rem
       </div>
     </Card.Content>
   </Card>
-)
+  )
+}
 
 export default PageListItem

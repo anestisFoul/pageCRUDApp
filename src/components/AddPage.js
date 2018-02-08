@@ -3,25 +3,13 @@ import { Link } from 'react-router-dom'
 import { SubmissionError } from 'redux-form'
 import { connect } from 'react-redux';
 import { addPage } from '../actions/pageActions'
+import PageHeader from './Header'
 import FormForValidation from './Form'
+import { errorMessage } from './Messages'
 import { Container, Grid, Header,  Image, Divider, Message, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
 
 const AddPage = ({dispatch, history, errors, ready}) => {
-  const errorMessage = (
-    <div>
-      <Message icon negative>
-        <Icon name='wait' />
-        <Message.Content>
-          <Message.Header>An error occured</Message.Header>
-          {errors.message}
-      </Message.Content>
-      </Message>
-      <Divider></Divider>
-      <Button as={Link} to="/" content='Back to Dashboard' icon='home' labelPosition='left' className="homeBtn" color='black' />
-    </div>
-  )
-
   const onSubmit = (page) => {
     page.publishedOn = moment(page.publishedOn).format()
     page.type == '3' ? page.type = '0' : page.type
@@ -47,14 +35,11 @@ const AddPage = ({dispatch, history, errors, ready}) => {
 
   return (
     <Container fluid>
-      <Header as='h1' className="mainTitle">
-        <Image circular src='../images/logo.png' size='medium' />
-        {'Add New Page'}
-      </Header>
+      <PageHeader content='Add New Page'/>
 
       <Grid centered stackable columns={2}>
         <Grid.Column>
-          { errors.message && errorMessage }
+          { errors.message && errorMessage(errors.message) }
           { !errors.message && PageContent }
         </Grid.Column>
       </Grid>

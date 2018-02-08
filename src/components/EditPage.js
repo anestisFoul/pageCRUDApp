@@ -3,35 +3,13 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { SubmissionError } from 'redux-form'
 import { Container, Grid, Header,  Image, Divider, Button, Message, Icon } from 'semantic-ui-react'
+import PageHeader from './Header'
 import FormForValidation from './Form'
+import { errorMessage, loadingMessage } from './Messages'
 import { editPage } from '../actions/pageActions'
 import moment from 'moment'
 
 const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
-  const loadingMessage = (
-    <Message icon info>
-      <Icon name='circle notched' loading />
-      <Message.Content>
-          <Message.Header>Just one second</Message.Header>
-          We are fetching that content for you.
-      </Message.Content>
-    </Message>
-  )
-
-  const errorMessage = (
-    <div>
-      <Message icon negative size='big'>
-        <Icon name='wait' />
-        <Message.Content>
-          <Message.Header>An error occured</Message.Header>
-          {errors.message}
-        </Message.Content>
-      </Message>
-      <Divider></Divider>
-      <Button as={Link} to="/" content='Back to Dashboard' icon='home' labelPosition='left' className="homeBtn" color='black' />
-    </div>
-  )
-
   const onSubmit = (page) => {
     page.publishedOn = moment(page.publishedOn).format()
     page.type == '3' ? page.type = '0' : page.type
@@ -56,15 +34,12 @@ const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
 
   return (
     <Container fluid>
-      <Header as='h1' className="mainTitle">
-        <Image as={Link} to="/" circular src='../images/logo.png' size='medium' />
-        Edit Page
-      </Header>
+      <PageHeader content='Edit Page'/>
 
       <Grid centered stackable columns={2}>
         <Grid.Column>
           { loading && loadingMessage }
-          { errors.message && errorMessage }
+          { errors.message && errorMessage(errors.message) }
           { !loading && !errors.message && PageContent }
         </Grid.Column>
       </Grid>

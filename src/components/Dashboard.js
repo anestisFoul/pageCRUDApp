@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Container, Segment, Header, Button, Icon, Image } from 'semantic-ui-react'
+import { Container, Segment, Button, Icon } from 'semantic-ui-react'
 import PageList from './PageList'
 import ActionBar from './ActionBar'
+import PageHeader from './Header'
 import { fetchPages, removePage } from '../actions/pageActions'
 import showPages from '../helpers/sorting'
 
@@ -15,10 +16,7 @@ class Dashboard extends Component {
   render() {
     return (
       <Container fluid>
-        <Header as='h1' className="mainTitle">
-          <Image circular src='images/logo.png' size='medium' />
-          {'Responsive Pages Dashboard'}
-        </Header>
+        <PageHeader content='Responsive Pages Dashboard'/>
 
         <ActionBar />
 
