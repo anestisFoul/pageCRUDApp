@@ -41,8 +41,7 @@ const renderTextAreaField = ({input, label, placeholder, meta: { touched, error 
 
 const renderSelectField = ({input, label, placeholder,options, meta: { touched, error }, children,}) => (
   <Form.Field>
-    <Form.Select fluid label={label} options={options} placeholder={placeholder} defaultValue={input.value.toString()} onChange={(e,{value}) =>{ console.log(value)
-    return (input.onChange(value)) } } required /> 
+    <Form.Select fluid label={label} options={options} placeholder={placeholder} defaultValue={input.value.toString()} onChange={(e,{value}) =>(input.onChange(value)) } required /> 
     {touched && ((error && <Label pointing color='red' content={error}/>))}
   </Form.Field>
 )
