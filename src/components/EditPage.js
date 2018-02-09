@@ -9,16 +9,14 @@ import { errorMessage, loadingMessage } from './Messages'
 import { editPage } from '../actions/pageActions'
 import moment from 'moment'
 
-const EditPage = ({page, loading, errors, dispatch, history, ready}) => {
+const EditPage = ({page, loading, errors, dispatch, history}) => {
   const onSubmit = (page) => {
     page.publishedOn = moment(page.publishedOn).format()
     page.type == '3' ? page.type = '0' : page.type
     dispatch(editPage(page.id, page))
       .then(
         response => {
-          ready= !ready
-          if(ready)
-            history.push('/')}
+          history.push('/')}
       )
       .catch(err => {
         throw new SubmissionError(errors.message)
@@ -52,7 +50,6 @@ const mapStateToProps = (state,props) => {
     page: state.pagesStore.pages.find((page) => page.id === parseInt(props.match.params.id)),
     loading: state.pagesStore.loading,
     errors: state.pagesStore.errors,
-    ready: false
   }
 }
 

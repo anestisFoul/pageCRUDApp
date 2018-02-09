@@ -9,16 +9,14 @@ import { errorMessage } from './Messages'
 import { Container, Grid, Header,  Image, Divider, Message, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
 
-const AddPage = ({dispatch, history, errors, ready}) => {
+const AddPage = ({dispatch, history, errors}) => {
   const onSubmit = (page) => {
     page.publishedOn = moment(page.publishedOn).format()
     page.type == '3' ? page.type = '0' : page.type
     dispatch(addPage(page))
       .then(
         response => {
-          ready = !ready
-          if(ready)
-            history.push('/')
+          history.push('/')
         }
       )
       .catch(err => {
@@ -50,7 +48,6 @@ const AddPage = ({dispatch, history, errors, ready}) => {
 const mapStateToProps = (state) => {
   return {
     errors: state.pagesStore.errors,
-    ready: false
   }
 }
 
