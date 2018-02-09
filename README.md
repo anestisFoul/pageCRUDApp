@@ -1,5 +1,5 @@
 # pageCRUDApp
-Interface for CRUD Actions regarding Responsive Pages for an Application
+CRUD App for managing Responsive Pages with React & Redux 
 
 *run npm install in project folder to install dependencies
 
