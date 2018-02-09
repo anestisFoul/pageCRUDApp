@@ -11,9 +11,12 @@ import moment from 'moment'
 
 const EditPage = ({page, loading, errors, dispatch, history}) => {
   const onSubmit = (page) => {
-    page.publishedOn = moment(page.publishedOn).format()
-    page.type == '3' ? page.type = '0' : page.type
-    dispatch(editPage(page.id, page))
+    let pageToSend = {
+      ...page,
+      publishedOn: moment(page.publishedOn).format(),
+      type: page.type == '3' ? '0' : page.type
+    }
+    dispatch(editPage(page.id, pageToSend))
       .then(
         response => {
           history.push('/')}
