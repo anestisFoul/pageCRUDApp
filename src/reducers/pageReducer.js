@@ -27,7 +27,7 @@ export default (state = pageReducerDefaultState, action) => {
       return {
         ...state,
         loading: false,
-        errors: { message: action.payload.message }
+        errors: { message: action.payload.message == 'Network Error' ? 'A Newtwork error occured while fetching content. Please try refreshing the page.' : 'An error occured. Please try refreshing the page in a few seconds.' }
       }
 
     case ADD_PAGE_PENDING: 
@@ -46,7 +46,7 @@ export default (state = pageReducerDefaultState, action) => {
       return {
         ...state,
         loading: false,
-        errors: { message: action.payload.message }
+        errors: { message: action.payload.message == 'Network Error' ? 'A Newtwork error occured. Please go back and try again.' : 'An error occured while submitting the form. Please go back and try again.' }
       }
 
     case EDIT_PAGE_PENDING: 
@@ -67,7 +67,7 @@ export default (state = pageReducerDefaultState, action) => {
       return {
         ...state,
         loading: false,
-        errors: { message: action.payload.message }
+        errors: { message: action.payload.message == 'Network Error' ? 'A Newtwork error occured. Please go back and try again.' : 'An error occured while submitting the form. Please go back and try again.' }
       }
 
     case REMOVE_PAGE_FULFILLED: 
